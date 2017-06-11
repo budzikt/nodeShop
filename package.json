@@ -1,0 +1,14 @@
+{
+  "name": "nodeshop",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "budzikt",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
