@@ -1,8 +1,12 @@
-//Importy
-var express = require('express');
+//Importy node.js
 var util = require('util');
 var querystring = require('querystring');
-
+//Importy npm
+var express = require('express');
+var cookieParser = require('cookie-parser');
+var bodyparser = require('body-parser')
+//Importy wlasne
+var b_util = require('./utils');
 //Konfiguracja
 var portNum = 8010;
 
@@ -10,8 +14,19 @@ var portNum = 8010;
 var app = express();
 
 //Middlewear
+app.use(cookieParser());
+app.use(bodyparser.urlencoded({ extended: true })); // <- Unikanie "depreciated error"
 
-app.get('/', function(req,res){
+//Rooting
+//All-path pass-through
+app.get('*', function(req,res,next) {
+    res.write("Captured by all route \n");
+    next();
+})
+
+app.get('/', function(req,res){ 
+    var query = req.query; 
+    console.log(b_util.isJsonEmpty(query));
     res.end("Main");
 })
 
