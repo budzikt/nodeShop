@@ -9,7 +9,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${file}"
+            //"program": "${file}" <- will launch always acive VS code file
+            "program": "${workspaceRoot}/SimpleServer.js", // <- will debug alwys from SimpleServer.js
+            "cwd": "${workspaceRoot}"
         },
         {
             "type": "node",
