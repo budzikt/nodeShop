@@ -8,3 +8,11 @@ exports.isJsonEmpty = function(obj) {
     }
     return true;
 }
+
+exports.reqUserParse = function(req,res,next){
+
+    if(req.app.get('myDebug')){
+        console.log('User parser fetched');
+    }
+    next();
+}

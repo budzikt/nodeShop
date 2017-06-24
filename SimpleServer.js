@@ -12,15 +12,18 @@ var b_util = require('./utils');
 
 //Konfiguracja
 var portNum = 8010;
+app.set('myDebug', true);
 
 //Konstruktor express
 var app = express();
 
-app.set('myDebug', true);
+
+
 //Middlewear
 app.use(cookieParser());
 app.use(bodyparser.urlencoded({ extended: true }));
-app.use(morgan('combined'))
+app.use(morgan('tiny'))
+app.use(b_util.reqUserParse);
 
 //Rooting
 app.get('/', function(req,res){ 
