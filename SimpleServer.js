@@ -19,10 +19,15 @@ app.use(bodyparser.urlencoded({ extended: true })); // <- Unikanie "depreciated 
 
 //Rooting
 //All-path pass-through
-app.get('*', function(req,res,next) {
+var genericCapture = require('./routes/genericCapture');
+var indexRouter = require('./routes/')
+console.log(typeof(genericCapture.router));
+app.get('*',genericCapture.router);
+
+/*app.get('*', function (req, res, next) {
     res.write("Captured by all route \n");
     next();
-})
+})*/
 
 app.get('/', function(req,res){ 
     var query = req.query; 
