@@ -4,31 +4,25 @@ var querystring = require('querystring');
 //Importy npm
 var express = require('express');
 var cookieParser = require('cookie-parser');
-var bodyparser = require('body-parser')
+var bodyparser = require('body-parser');
+var morgan = require('morgan');
+
 //Importy wlasne
 var b_util = require('./utils');
+
 //Konfiguracja
 var portNum = 8010;
 
 //Konstruktor express
 var app = express();
 
+app.set('myDebug', true);
 //Middlewear
 app.use(cookieParser());
-app.use(bodyparser.urlencoded({ extended: true })); // <- Unikanie "depreciated error"
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(morgan('combined'))
 
 //Rooting
-//All-path pass-through
-var genericCapture = require('./routes/genericCapture');
-var indexRouter = require('./routes/')
-console.log(typeof(genericCapture.router));
-app.get('*',genericCapture.router);
-
-/*app.get('*', function (req, res, next) {
-    res.write("Captured by all route \n");
-    next();
-})*/
-
 app.get('/', function(req,res){ 
     var query = req.query; 
     console.log(b_util.isJsonEmpty(query));
@@ -38,6 +32,9 @@ app.get('/', function(req,res){
 app.get('/items', function(req,res){
     res.end("Przedmioty");
 })
+
+//Plug additiona router for API requiests
+app.use('/api', require('./routes/api').apiRouter);
 
 app.listen(portNum, function(){
     console.log("Serwer nasluchje na porcie 8010");
