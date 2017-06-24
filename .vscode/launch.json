@@ -13,9 +13,9 @@
         },
         {
             "type": "node",
-            "request": "launch",
+            "request": "attach",
             "name": "Pesistent",
-            "program": "${file}"
+            "restart":true
         }
     ]
 }
