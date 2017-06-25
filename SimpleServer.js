@@ -14,12 +14,12 @@ var b_util = require('./utils');
 //Konstruktor express
 var app = express();
 
-//Konfiguracja
+//Konfiguracja express
 var portNum = 8010;
 app.set('myDebug', true);
 
-//Middlewear
-app.use(cookieParser());
+//Oprogramowanie pośredniczące
+app.use(cookieParser());  // analiza ciasteczek zapytania
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(morgan('tiny'))
 app.use(b_util.reqUserParse);

@@ -16,6 +16,6 @@ exports.reqUserParse = function(req,res,next){
         console.log(req.hostname);
         console.log(req.get('Host'));
     }
-    req.
+    
     next();
 }
