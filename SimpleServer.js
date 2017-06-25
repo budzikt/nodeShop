@@ -6,18 +6,17 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyparser = require('body-parser');
 var morgan = require('morgan');
+var vhost = require('vhost');
 
 //Importy wlasne
 var b_util = require('./utils');
 
-//Konfiguracja
-var portNum = 8010;
-app.set('myDebug', true);
-
 //Konstruktor express
 var app = express();
 
-
+//Konfiguracja
+var portNum = 8010;
+app.set('myDebug', true);
 
 //Middlewear
 app.use(cookieParser());

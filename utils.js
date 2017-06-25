@@ -12,7 +12,10 @@ exports.isJsonEmpty = function(obj) {
 exports.reqUserParse = function(req,res,next){
 
     if(req.app.get('myDebug')){
-        console.log('User parser fetched');
+        console.log('User parser fetched\n');
+        console.log(req.hostname);
+        console.log(req.get('Host'));
     }
+    req.
     next();
 }
