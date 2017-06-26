@@ -23,7 +23,7 @@ app.set('vhosting', false);
 //Oprogramowanie pośredniczące
 app.use(compression()); // Kompresja odpowiedzi dla klienta
 //app.use(bodyparser.urlencoded({ extended: true })); // Analiza zapytania URL
-//app.use(bodyparser.json());  // Analiza JSON zapytania
+app.use(bodyparser.json());  // Analiza JSON zapytania
 app.use(cookieParser());  // analiza ciasteczek zapytania
 app.use(methodoverride('X-HTTP-Method-Override'));
 app.use(morgan('tiny')) // Logger zdarzen
@@ -37,12 +37,16 @@ app.use(b_util.reqUserParse); //biblioteki wlasne
 //Rooting
 //Main page 
 app.get('/', function(req,res){ 
-    res.end("Main");
+    res.end("Main page placeholder");
 })
 
-app.post('/', function(req,res){ 
-    var query = req.query
-    res.send(JSON.stringify(query));
+app.post('/', bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){ 
+    var query = req.query;
+    var resStr = '';
+    for (var prop in req.query) {
+        resStr = resStr  + (prop + ' : '+ req.query[prop] + '\n');  
+    }
+    res.send(resStr);
 })
 
 app.delete('/', function(req,res){
