@@ -15,6 +15,14 @@
         },
         {
             "type": "node",
+            "request": "launch",
+            "name": "Launch Db",
+            //"program": "${file}" <- will launch always acive VS code file
+            "program": "${workspaceRoot}/dbHandler.js", // <- will debug alwys from SimpleServer.js
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "type": "node",
             "request": "attach",
             "name": "Pesistent",
             "restart":true

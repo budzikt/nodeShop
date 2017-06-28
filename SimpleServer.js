@@ -37,7 +37,8 @@ app.use(b_util.reqUserParse); //biblioteki wlasne
 //Rooting
 //Main page 
 app.get('/', function(req,res){ 
-    res.end("Main page placeholder");
+    res.set({'Content-Type': 'text/html'})
+    res.end("<h1>Tu będzie sklep</h1>");
 })
 
 app.post('/', bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){ 
