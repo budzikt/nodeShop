@@ -52,7 +52,16 @@ app.post('/', bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), functi
     for (var prop in req.query) {
         resStr = resStr  + (prop + ' : '+ req.query[prop] + '\n');  
     }
+    for (var qit in req.body) {
+        if (req.body.hasOwnProperty(qit)) {
+        resStr = resStr + (qit + ' : ' + req.body[qit] + '\n');
+    }
+}
     res.send(resStr);
+})
+
+app.get('/id/:tagId', function(req,res){
+    res.send('Zapytano o ID: ' + req.params['tagId']);
 })
 
 app.delete('/', function(req,res){
