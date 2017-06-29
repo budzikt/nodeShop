@@ -1,0 +1,14 @@
+[
+    {
+        "name": "produkt1",
+        "quantity":  5,
+        "discription" : "Opis produktu1",
+        "imgRefs" : ["pr1_1", "pr1_2", "pr1_3"]
+    },
+    {
+        "name": "produkt2",
+        "quantity":  10,
+        "discription" : "Opis produktu2",
+        "imgRefs" : ["pr2_1", "pr2_2", "pr2_3"]
+    }
+]

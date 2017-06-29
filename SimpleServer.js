@@ -27,7 +27,12 @@ app.use(bodyparser.json());  // Analiza JSON zapytania
 app.use(cookieParser());  // analiza ciasteczek zapytania
 app.use(methodoverride('X-HTTP-Method-Override'));
 app.use(morgan('tiny')) // Logger zdarzen
+app.use(express.static('./public')) // Obsluga tresci statycznych
 app.use(b_util.reqUserParse); //biblioteki wlasne
+
+
+var jsonTestData = require('./dbTestData.json');
+
 
 //Virtual hosts
 // var apiApp = express(); // Osobna aplikacja do obslugi REST api
