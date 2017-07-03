@@ -1,7 +1,9 @@
-var MongoClient = require('mongodb').MongoClient;
+var MongoDb = require('mongodb');
 var assert = require('assert');
-var jsonTestData = require('./dbTestData.json');
+var jsonTestData = require('./dbTestData.json').items;
 
+// Get client
+var MongoClient = MongoDb.MongoClient;
 // Connection URL
 var url = 'mongodb://localhost:27017/shop';
 // Use connect method to connect to the server
@@ -16,7 +18,7 @@ MongoClient.connect(url, function(err, db) {
   });
 });
 
-    var insertDocuments = function(db, callback) {
+var insertDocuments = function(db, callback) {
   // Get the documents collection
   db.dropCollection('ShopItems', function(){
     console.log('Usunueto cala kolekcje, teraz dodamy swieze dane');
@@ -35,7 +37,7 @@ var findDocuments = function(db, callback) {
   // Find some documents
   collection.find({}).toArray(function(err, docs) {
     assert.equal(err, null);
-    console.log("Znaleziono rekordy:");
+    console.log("Znaleziono " + docs.length + " rekordy:");
     console.log(docs)
     callback(docs);
   });
