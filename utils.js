@@ -14,3 +14,7 @@ exports.reqUserParse = function(req,res,next){
     }
     next();
 }
+
+exports.addDateField = function(item){
+    
+}

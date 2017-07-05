@@ -6,7 +6,8 @@
             "price": 7.99,
             "discount": false,
             "discription" : "Opis produktu1",
-            "imgRefs" : ["pr1_1", "pr1_2", "pr1_3"]
+            "imgRefs" : ["pr1_1", "pr1_2", "pr1_3"],
+            "dateAdded" :""
         },
         {
             "name": "produkt2",
@@ -14,6 +15,7 @@
             "price": 12.99,
             "discount": true,
             "discription" : "Opis produktu2",
-            "imgRefs" : ["pr2_1", "pr2_2", "pr2_3"]
+            "imgRefs" : ["pr2_1", "pr2_2", "pr2_3"],
+            "dateAdded" :""
         }]
 }

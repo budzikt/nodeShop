@@ -2,6 +2,7 @@
 var util = require('util');
 var querystring = require('querystring');
 var path = require('path');
+var fs = require('fs');
 //Importy npm
 var express = require('express');
 var cookieParser = require('cookie-parser');
@@ -23,9 +24,13 @@ app.set('myDebug', true);
 app.set('vhosting', false);
 
 // Template Engine
+var pathsPack = {
+    layoutsDir: fs.existsSync(path.join(__dirname, 'views' ,'layouts')) ? path.join(__dirname, 'views' ,'layouts') : 'views/layouts',
+    partialsDir: fs.existsSync(path.join(__dirname, 'views' ,'partials')) ? path.join(__dirname, 'views' ,'partials') : 'views/partials'
+}
 var hbs = exphbs.create({   defaultLayout: "main",
                             extname: ".handlebars",
-                            layoutsDir: "views/layouts/",
+                            layoutsDir: "views/layouts/", /*path.join(__dirname, 'views' ,'layouts'),*/
                             partialsDir: "views/partials/",
                             helpers: {
 
@@ -46,21 +51,13 @@ app.use(morgan('tiny')) // Logger zdarzen
 app.use(express.static('./public')) // Obsluga tresci statycznych
 app.use(b_util.reqUserParse); //biblioteki wlasne
 
-//Databasing
+//Databasing test set
 var jsonTestData = require('./dbTestData.json');
-
-
-//Virtual hosts
-// var apiApp = express(); // Osobna aplikacja do obslugi REST api
-// var vhApi = vhost('api.budzikt.pl', apiApp);
-// app.use(vhApi);
 
 //Rooting
 //Main page 
 app.get('/', function(req,res){ 
-    res.render('main');
-    //res.set({'Content-Type': 'text/html'})
-    // res.end("<h1>Tu będzie sklep</h1>");
+    res.render('mainPage');
 })
 
 app.post('/', bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){ 

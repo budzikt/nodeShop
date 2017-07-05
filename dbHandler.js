@@ -1,6 +1,6 @@
 var MongoDb = require('mongodb');
 var assert = require('assert');
-var jsonTestData = require('./dbTestData.json').items;
+var jsonTestObj = require('./dbTestData.json');
 
 // Get client
 var MongoClient = MongoDb.MongoClient;
@@ -23,7 +23,15 @@ var insertDocuments = function(db, callback) {
   db.dropCollection('ShopItems', function(){
     console.log('Usunueto cala kolekcje, teraz dodamy swieze dane');
     var collection = db.collection('ShopItems');
-    collection.insertMany(jsonTestData, function(err, result) {
+    
+    //Add date to each JSON item
+    for (var i = 0; i< jsonTestObj['items'].length; i++){
+      jsonTestObj['items'][i].dateAdded = new Date(2017,7,1+i,5);
+    }
+
+    jsonItems = jsonTestObj['items'];
+    
+    collection.insertMany(jsonTestObj, function(err, result) {
       assert.equal(err, null);
       console.log("Dodano swieze dane");
       callback(result);
