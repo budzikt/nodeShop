@@ -1,2 +1,11 @@
 <h1>Aplikacja Sklepowa</h1>
 <p>To przykładowa alpikacja sklepowa</p>
+<p>Witaj {{user}}</p>
+<div>
+{{#known}}
+    <a href="/account">Moje konto</a> 
+{{/known}}
+{{^known}}
+    <a href="/login">Zaloguj</a> 
+{{/known}}
+</div>

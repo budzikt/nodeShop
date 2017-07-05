@@ -1,0 +1,23 @@
+<div class="loginBox">
+  <form action="/userAuth" method="post">
+    <div class="container">
+      <label><b>Nazwa użytkownika</b></label>
+      <input type="text" placeholder="Nazwa..." name="userName" required>
+    </div>
+    <div class="container">
+      <label><b>Hasło</b></label>
+      <input type="password" placeholder="Hasło..." name="password" required>
+    </div>
+    <div class="container">
+      <button type="submit">Login</button>
+      <input type="checkbox" checked="checked" name="rememberMe"> Zapamiętaj mnie
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" class="cancelbtn">Anuluj</button>
+    </div>
+    <div>
+      <span class="psw-rec"><a href="#">Zapomniałeś Hasła?</a></span>
+    </div>
+  </form>
+</div>
