@@ -1,37 +1,36 @@
 var MongoDb = require('mongodb');
 var assert = require('assert');
-var jsonTestObj = require('./dbTestData.json');
+var jsonTestItems = require('./dbTestData.json');
+var jsonTestUsers = require('./dbTestUsers.json')
 
-// Get client
 var MongoClient = MongoDb.MongoClient;
-// Connection URL
-var url = 'mongodb://localhost:27017/shop';
-// Use connect method to connect to the server
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log("Polaczono z kolekcja Shop");
+var DbUrl = 'mongodb://localhost:27017/shop';
 
-  insertDocuments(db, function() {
-    findDocuments(db, function() {
-      db.close();
+// Use connect method to connect to the server
+
+
+function RevertDbData(client, url){
+  client.connect(DbUrl, function(err, db) {
+    assert.equal(null, err);
+    console.log("Polaczono z baza danych");
+    insertDocuments(db, 'ShopItems', jsonTestItems['items'], function(result) {
+        db.close();
     });
   });
-});
+};
 
-var insertDocuments = function(db, callback) {
-  // Get the documents collection
+var insertDocuments = function(db, collection='ShopItems', dataset={}, callback) {
+  
   db.dropCollection('ShopItems', function(){
-    console.log('Usunueto cala kolekcje, teraz dodamy swieze dane');
-    var collection = db.collection('ShopItems');
+    console.log('Usunueto cala kolekcje, dodaje dane startowe');
+    var collectionItems = db.collection('ShopItems');
     
     //Add date to each JSON item
-    for (var i = 0; i< jsonTestObj['items'].length; i++){
-      jsonTestObj['items'][i].dateAdded = new Date(2017,7,1+i,5);
+    for (var i = 0; i< dataset.length; i++){
+      dataset[i].dateAdded = new Date(2017,7,1+i,5);
     }
-
-    jsonItems = jsonTestObj['items'];
     
-    collection.insertMany(jsonTestObj, function(err, result) {
+    collectionItems.insertMany(dataset, function(err, result) {
       assert.equal(err, null);
       console.log("Dodano swieze dane");
       callback(result);
@@ -50,3 +49,5 @@ var findDocuments = function(db, callback) {
     callback(docs);
   });
 }
+
+RevertDbData(MongoClient, DbUrl);
