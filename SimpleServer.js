@@ -54,11 +54,33 @@ app.use(b_util.reqUserParse); //biblioteki wlasne
 //Databasing test set
 var jsonTestData = require('./dbTestData.json');
 
-//Rooting
+/*Rooting*/
+
 //Main page 
 app.get('/', function(req,res){ 
-    res.render('mainPage');
+    var dataBind = {};
+    if(req.session){
+        // session cookie & keep me sign in
+        // find user
+    }
+    else{
+        dataBind['user'] = 'niezalogowany użytkowniku';
+        dataBind['known'] = false;
+    }
+
+    res.render('mainPage', {"user" : dataBind['user']});
 })
+
+app.get('/login', function(req,res){
+    res.render('login')
+})
+
+app.post('/userAuth', bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){
+    console.log(req.body);
+    res.end('UserAuth')
+})
+
+app.get('/createAccount')
 
 app.post('/', bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){ 
     var query = req.query;
