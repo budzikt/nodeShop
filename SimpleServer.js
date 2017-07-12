@@ -23,7 +23,8 @@ app = express();
 //Konfiguracja express
 var portNum = 8010;
 app.set('port', 8010);
-app.set('myDebug', false);
+app.set('myDebugLog', false);
+app.set('myDebugConf', true);
 app.set('vhosting', false);
 
 var pathsPack = {
@@ -43,7 +44,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-
 //Oprogramowanie pośredniczące
 app.use(compression()); // Kompresja odpowiedzi dla klienta
 //app.use(bodyparser.urlencoded({ extended: true })); // Analiza zapytania URL
@@ -60,6 +60,11 @@ app.use(b_util.reqUserParse); //biblioteki wlasne
 
 /* Static assests configuration */
 app.use(express.static('./public')) // Obsluga tresci statycznych
+
+
+if(app.get('myDebugConf') == true){
+    app.disable('etag');
+}
 
 //Databasing test set
 var jsonTestData = require('./dbTestData.json');
