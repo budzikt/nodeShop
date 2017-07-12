@@ -29,7 +29,8 @@ app.set('vhosting', false);
 
 var pathsPack = {
     layoutsDir: fs.existsSync(path.join(__dirname, 'views' ,'layouts')) ? path.join(__dirname, 'views' ,'layouts') : 'views/layouts',
-    partialsDir: fs.existsSync(path.join(__dirname, 'views' ,'partials')) ? path.join(__dirname, 'views' ,'partials') : 'views/partials'
+    partialsDir: fs.existsSync(path.join(__dirname, 'views' ,'partials')) ? path.join(__dirname, 'views' ,'partials') : 'views/partials',
+    staticDir: fs.existsSync(path.join(__dirname, 'public')) ? path.join(__dirname, 'public') : '/public/'
 }
 // Template Engine
 var hbs = exphbs.create({   defaultLayout: "main",
@@ -46,10 +47,9 @@ app.set('view engine', 'handlebars');
 
 //Oprogramowanie pośredniczące
 app.use(compression()); // Kompresja odpowiedzi dla klienta
-//app.use(bodyparser.urlencoded({ extended: true })); // Analiza zapytania URL
 app.use(bodyparser.json());  // Analiza JSON zapytania
 app.use(cookieParser('secret'));  // analiza ciasteczek zapytania
-app.use(methodoverride('X-HTTP-Method-Override'));
+app.use(methodoverride('X-HTTP-Method-Override')); //nadpisywanie zapytań dla rest-api
 app.use(morgan('tiny')); // Logger zdarzen
 app.use(session({
     secret: 'secret',
@@ -64,6 +64,10 @@ app.use(express.static('./public')) // Obsluga tresci statycznych
 
 if(app.get('myDebugConf') == true){
     app.disable('etag');
+    app.use(function(req, res, next) {
+    req.headers['if-none-match'] = 'no-match-for-this';
+    next();    
+});
 }
 
 //Databasing test set

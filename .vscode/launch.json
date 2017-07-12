@@ -26,6 +26,12 @@
             "request": "attach",
             "name": "Pesistent",
             "restart":true
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Current File",
+            "program": "${file}"
         }
     ]
 }
