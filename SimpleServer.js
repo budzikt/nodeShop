@@ -70,9 +70,6 @@ if(app.get('myDebugConf') == true){
 });
 }
 
-//Databasing test set
-var jsonTestData = require('./dbTestData.json');
-
 /*Rooting*/
 
 //Main page 
@@ -95,11 +92,47 @@ app.get('/login', function(req,res){
 })
 
 app.get('/signin', function(req,res){
-    res.render('signin');
+    res.render('signin', {});
 })
 
-app.post('/signin', function(req,res){
+app.post('/signin',  bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){
+    app.locals.dataBind = app.locals.dataBind || {}; 
+    var MongoClient = MongoDb.MongoClient;
+    var url = 'mongodb://localhost:27017/shop';
 
+    if(req.body.password == req.body.passwordRetype){
+        MongoClient.connect(url, function(err, db){
+            var users = db.collection('ShopUsers');
+            users.find({$or:[{name : req.body.userName},{email : req.body.userMail}]}).toArray(function(err, docs){
+                if(docs.length != 0){
+                    res.end("Ten login lub hasło jest już w użyciu");
+                }
+                else{
+                    console.log("Adding user to DB ")
+                    users.insertOne({
+                        name : req.body.userName, 
+                        email : req.body.userMail,
+                        password : req.body.password,
+                        role : "buyer"
+                    }, function(error, result){
+                        db.close();
+                        if(!error){
+                            console.log("Added user" + result.ops);
+                            res.redirect('/login');
+                        }
+                        else{
+                            res.end("DB error");
+                        }
+                    })
+                }
+            })
+        })
+    }
+    else{
+        app.locals.dataBind.faultArr = app.locals.dataBind.faultArr || [];
+        app.locals.dataBind.faultArr.push("Podane hasła się nie zgadzają");
+        res.redirect('/signin');
+    }
 })
 
 app.post('/login',  bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){
