@@ -123,10 +123,10 @@ app.post('/signin',  bodyparser.urlencoded({'type' : '*/*', 'extended' : true}),
                         else{
                             res.end("DB error");
                         }
-                    })
+                    });
                 }
-            })
-        })
+            });
+        });
     }
     else{
         app.locals.dataBind.faultArr = app.locals.dataBind.faultArr || [];
@@ -159,7 +159,13 @@ app.post('/login',  bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), 
 })
 
 app.get('/logout', function(req,res){
-
+    req.session.destroy(function(error){
+        if(error){
+            console.log(error);
+        }else{
+            res.redirect('/');
+        }
+    })
 })
 
 app.post('/userAuth', bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){
