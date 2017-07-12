@@ -8,8 +8,7 @@ exports.isJsonEmpty = function(obj) {
 
 exports.reqUserParse = function(req,res,next){
 
-    if(req.app.get('myDebug')){
-        console.log('User parser fetched');
+    if(req.app.get('myDebugLog')){
         console.log(req.hostname + ' ' + req.get('Host'));
     }
     next();
