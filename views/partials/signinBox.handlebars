@@ -1,27 +1,41 @@
-<div class="signinBox">
-  <form  method="post">
-    <div class="container">
-      <label><b>Nazwa użytkownika</b></label>
-      <input type="text" placeholder="Nazwa..." name="userName" required>
-    </div>
-    <div class="container">
-      <label><b>E-Mail</b></label>
-      <input type="email" placeholder="E-mail..." name="userMail" required>
-    </div>
-    <div class="container">
-      <label><b>Hasło</b></label>
-      <input type="password" placeholder="Hasło..." name="password" required>
-    </div>
-     <div class="container">
-      <label><b>Powtórz hasło</b></label>
-      <input type="password" placeholder="Hasło..." name="passwordRetype" required>
-    </div>   
-    <div class="container">
-      <button type="submit">Utwórz</button>
-    </div>
+<div class="container">
+  <div class="row">
+    <form  method="post" class="form-horizontal">
+      <div class="form-group">
+        <label for="inputName" class="control-label col-xs-2">Nazwa użytkownika</label>
+        <div class="col-xs-10">
+        <input id="inputName" type="text" placeholder="Nazwa..." name="userName" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-2"><b>E-Mail</b></label>
+        <div class="col-xs-10">
+        <input type="email" placeholder="E-mail..." name="userMail" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-2"><b>Hasło</b></label>
+        <div class="col-xs-10">
+        <input type="password" placeholder="Hasło..." name="password" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-xs-2"><b>Powtórz hasło</b></label>
+        <div class="col-xs-10">
+            <input type="password" placeholder="Hasło..." name="passwordRetype" required>
+        </div>
+      </div>   
+      <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+        <button type="submit">Utwórz</button>
+        </div>
+      </div>
 
-    <div class="container">
-      <button type="button" class="cancelbtn">Anuluj</button>
-    </div>
-  </form>
+      <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+        <button type="button" class="cancelbtn">Anuluj</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,23 +1,31 @@
-<div class="loginBox">
-  <form  method="post">
-    <div class="container">
-      <label><b>Nazwa użytkownika</b></label>
-      <input type="text" placeholder="Nazwa..." name="userName" required>
+<div class="container">
+<div class="row">
+  <form class="form-horizontal" method="post">
+  <div class="form-group">
+    <label for="inputName" class="control-label col-xs-2">Nazwa użytkownika</label>
+    <div class="col-xs-10">
+      <input type="text" class="form-control" id="inputName" placeholder="Nazwa..." name="userName">
     </div>
-    <div class="container">
-      <label><b>Hasło</b></label>
-      <input type="password" placeholder="Hasło..." name="password" required>
-    </div>
-    <div class="container">
-      <button type="submit">Login</button>
-      <input type="checkbox" checked="checked" name="rememberMe"> Zapamiętaj mnie
-    </div>
+  </div>
 
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" class="cancelbtn">Anuluj</button>
+  <div class="form-group">
+    <label for="inputPassword" class="control-label col-xs-2">Password</label>
+    <div class="col-xs-10">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Hasło..." name="password">
     </div>
-    <div>
-      <span class="psw-rec"><a href="#">Zapomniałeś Hasła?</a></span>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-offset-2 col-xs-10">
+      <div class="checkbox">
+        <label><input type="checkbox" name="rememberMe"> Pamiętaj mnie</label>
+      </div>
     </div>
-  </form>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-offset-2 col-xs-10">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+  </div>
+</form>
+</div>
 </div>
