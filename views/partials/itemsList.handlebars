@@ -20,17 +20,13 @@
                 <div class="col-md-2">Cena: {{this.price}}</div>
                 <div class="col-md-2">Stan magazynowy: {{this.quantity}}</div>
             </div>
-
-            <form>
-                <button type="submit" class="btn btn-primary">Kup</button>
-                {{#if this.discount}}
-                    <span class="label label-warning">Wyprzedaż</span>  
-                {{/if}}
-            </form>
             <div class="btn-group" role="group" aria-label="...">
                 <button type="button" class="btn btn-default btn btn-success">Kup</button>
                 <button type="button" class="btn btn-default">Szczegóły...</button>
                 <button type="button" class="btn btn-default">Komentarz</button>
+                {{#if this.discount}}
+                    <div class="label label-warning">Wyprzedaż</div>  
+                {{/if}}
             </div>
         </div>
     </div>
