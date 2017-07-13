@@ -203,9 +203,21 @@ app.delete('/', function(req,res){
     res.end("Delete")
 })
 
-
 app.get('/items', function(req,res){
     res.end("Przedmioty");
+})
+
+app.get('/shop', function(req,res){
+    app.locals.dataBind = app.locals.dataBind || {}; 
+    var MongoClient = MongoDb.MongoClient;
+    var url = 'mongodb://localhost:27017/shop';
+    MongoClient.connect(url, function(err, db){
+        var items = db.collection('ShopItems');
+        items.find({}).toArray(function(err, docs){
+            if(err) {console.log("Error at shop"); res.send(err); return;}
+            res.render('shop', {docs})
+        });   
+    });
 })
 
 //Plug additiona router for API requiests - all mounted on /api will be used in router as relative (i.e. / not as /api)

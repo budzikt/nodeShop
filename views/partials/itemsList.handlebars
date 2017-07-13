@@ -1,0 +1,38 @@
+<div class="container">
+    {{#each docs}}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                <h2>{{this.name}}</h2>
+                <p>{{this.discription}}</p>
+                    {{#each this.imgRefs}}
+                        <div class="col-xs-6 col-md-3">
+                            <a href="#" class="thumbnail">
+                                <img src="" alt="obrazek...">
+                                <span>{{this}}</span>
+                            </a>
+                        </div> 
+                    {{/each}}
+                </div>
+            </div>
+            <div class="row well well-sm">
+                <div class="col-md-2">Cena: {{this.price}}</div>
+                <div class="col-md-2">Stan magazynowy: {{this.quantity}}</div>
+            </div>
+
+            <form>
+                <button type="submit" class="btn btn-primary">Kup</button>
+                {{#if this.discount}}
+                    <span class="label label-warning">Wyprzedaż</span>  
+                {{/if}}
+            </form>
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default btn btn-success">Kup</button>
+                <button type="button" class="btn btn-default">Szczegóły...</button>
+                <button type="button" class="btn btn-default">Komentarz</button>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
