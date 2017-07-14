@@ -1,4 +1,4 @@
-{
+[{
     "name": "produkt1",
     "quantity":  5,
     "price": 7.99,
@@ -7,7 +7,7 @@
     "fulldiscription": "Pełny opis produktu 1",
     "imgRefs" : ["pr1_1", "pr1_2", "pr1_3"],
     "dateAdded" :""
-}
+},
 {
     "name": "produkt2",
     "quantity":  10,
@@ -17,7 +17,7 @@
     "fulldiscription": "Pełny opis produktu 2",
     "imgRefs" : ["pr2_1", "pr2_2", "pr2_3"],
     "dateAdded" :""
-}
+},
 {
     "name": "produkt3",
     "quantity":  0,
@@ -27,7 +27,7 @@
     "fulldiscription": "Pełny opis produktu 3",
     "imgRefs" : ["pr3_1", "pr3_2"],
     "dateAdded" :""
-}
+},
 {
     "name": "produkt4",
     "quantity":  90,
@@ -37,5 +37,5 @@
     "fulldiscription": "Pełny opis produktu 4",
     "imgRefs" : [],
     "dateAdded" :""
-}
+}]
 

@@ -1,1 +1,1 @@
-mongoimport --db shop --collection ShopItemsTest --file ./DatabaseFeed/dbTestData.json --drop
+mongoimport --db shop --collection ShopItemsTest --file ./DatabaseFeed/dbTestData.json --drop --jsonArray
