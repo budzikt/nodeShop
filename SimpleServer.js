@@ -193,22 +193,6 @@ app.post('/', bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), functi
     res.send(resStr);
 })
 
-app.get('/idreg/:id(\\d+)', function(req,res){
-    res.send('Zapytano o ID z regex: ' + req.params['id']);
-})
-
-app.get('/id/:tagId', function(req,res){
-    res.send('Zapytano o ID: ' + req.params['tagId']);
-})
-
-app.delete('/', function(req,res){
-    res.end("Delete")
-})
-
-app.get('/items', function(req,res){
-    res.end("Przedmioty");
-})
-
 app.get('/shop', function(req,res){
     app.locals.dataBind = app.locals.dataBind || {}; 
     var MongoClient = MongoDb.MongoClient;
@@ -222,13 +206,18 @@ app.get('/shop', function(req,res){
     });
 })
 
-app.get('/itemdetails', function(req,res){
-    var query = req.query;
-    console.log(req.query['itemid']);
-})
-
 app.get('/itemdetails/:id', function(req,res){
-    console.log(req.params['id']);
+    app.locals.dataBind = app.locals.dataBind || {}; 
+    var MongoClient = MongoDb.MongoClient;
+    var url = 'mongodb://localhost:27017/shop';
+    MongoClient.connect(url, function(err, db){
+        var items = db.collection('ShopItems');
+        var id =new MongoDb.ObjectID(req.params.id);
+        items.find({_id : id}).toArray(function(err, items){
+            if(err) {console.log("Error at shop"); res.send(err); return;}
+            res.render('item', {itemObj: items[0]})
+        });   
+    });
 })
 
 //Plug additiona router for API requiests - all mounted on /api will be used in router as relative (i.e. / not as /api)

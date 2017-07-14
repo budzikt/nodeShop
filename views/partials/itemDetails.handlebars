@@ -1,0 +1,31 @@
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                <h1>{{itemObj.name}}</h1>
+                <h2 class="row well well-sm">{{itemObj.discription}}</h2>
+                <p>{{itemObj.fulldiscription}}</p>
+                    {{#each itemObj.imgRefs}}
+                        <div class="col-xs-6 col-md-3">
+                            <a href="#" class="thumbnail">
+                                <img src="" alt="obrazek...">
+                                <span>{{this}}</span>
+                            </a>
+                        </div> 
+                    {{/each}}
+                </div>
+            </div>
+            <div class="row well well-sm">
+                <div class="col-md-2">Cena: {{itemObj.price}}</div>
+                <div class="col-md-2">Stan magazynowy: {{itemObj.quantity}}</div>
+            </div>
+            <div class="btn-group" role="group" aria-label="...">
+                {{#if (itemAvailable itemObj)}}
+                    <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Kup {{#if itemObj.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
+                    <a href="/addtocart/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka</a>
+                {{else}}
+                    <button type="button" class="btn btn-default btn-info">Brak towaru!</button>
+                {{/if}}
+            </div>
+        </div>
+    </div>
