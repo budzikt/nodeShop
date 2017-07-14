@@ -3,8 +3,8 @@
     "quantity":  5,
     "price": 7.99,
     "discount": false,
-    "discription" : "Dscr1",
-    "fulldiscription": "Full dscr1",
+    "discription" : "Opis produktu1",
+    "fulldiscription": "Pełny opis produktu 1",
     "imgRefs" : ["pr1_1", "pr1_2", "pr1_3"],
     "dateAdded" :""
 }
@@ -13,8 +13,8 @@
     "quantity":  10,
     "price": 12.99,
     "discount": true,
-    "discription" : "Dscr2",
-    "fulldiscription": "Full dscr2",
+    "discription" : "Opis produktu2",
+    "fulldiscription": "Pełny opis produktu 2",
     "imgRefs" : ["pr2_1", "pr2_2", "pr2_3"],
     "dateAdded" :""
 }
@@ -23,8 +23,8 @@
     "quantity":  0,
     "price": 19.99,
     "discount": false,
-    "discription" : "Dscr3",
-    "fulldiscription": "Full dscr3",
+    "discription" : "Opis produktu3",
+    "fulldiscription": "Pełny opis produktu 3",
     "imgRefs" : ["pr3_1", "pr3_2"],
     "dateAdded" :""
 }
@@ -33,8 +33,9 @@
     "quantity":  90,
     "price": 2.20,
     "discount": true,
-    "discription" : "Dscr4",
-    "fulldiscription": "Full dscr4",
+    "discription" : "Opis produktu4",
+    "fulldiscription": "Pełny opis produktu 4",
     "imgRefs" : [],
     "dateAdded" :""
 }
+
