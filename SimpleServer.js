@@ -4,6 +4,7 @@ var querystring = require('querystring');
 var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
+
 //Importy npm
 var express = require('express');
 var cookieParser = require('cookie-parser');
@@ -15,6 +16,7 @@ var methodoverride = require('method-override');
 var exphbs  = require('express-handlebars');
 var session = require('express-session')
 var MongoDb = require('mongodb');
+
 //Importy wlasne
 var b_util = require('./utils');
 
@@ -35,7 +37,7 @@ var pathsPack = {
 // Template Engine
 var hbs = exphbs.create({   defaultLayout: "main",
                             extname: ".handlebars",
-                            layoutsDir: "views/layouts/", /*path.join(__dirname, 'views' ,'layouts'),*/
+                            layoutsDir: "views/layouts/", 
                             partialsDir: "views/partials/",
                             helpers: {
 
@@ -218,6 +220,15 @@ app.get('/shop', function(req,res){
             res.render('shop', {docs})
         });   
     });
+})
+
+app.get('/itemdetails', function(req,res){
+    var query = req.query;
+    console.log(req.query['itemid']);
+})
+
+app.get('/itemdetails/:id', function(req,res){
+    console.log(req.params['id']);
 })
 
 //Plug additiona router for API requiests - all mounted on /api will be used in router as relative (i.e. / not as /api)
