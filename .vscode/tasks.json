@@ -7,6 +7,13 @@
             "taskName": "echo",
             "command": "echo Hello",
             "type": "shell"
+        },
+        {
+            "taskName" : "FillDb",
+            "type": "shell",
+            "windows": {
+                "command": "./DatabaseFeed/fillitems.cmd"
+            }
         }
     ]
 }
