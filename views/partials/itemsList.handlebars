@@ -21,11 +21,14 @@
                 <div class="col-md-2">Stan magazynowy: {{this.quantity}}</div>
             </div>
             <div class="btn-group" role="group" aria-label="...">
-                <!--<button type="button" class="btn btn-default btn btn-success"><a href="/itemdetails" style="display:block;background-color: #fad">Kup</a></button> --> 
-                <a href="/itemdetails?itemid={{this._id}}" title="using query string" class="btn btn-default btn btn-success" role="button">Kup {{#if this.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
-                <a href="/itemdetails/{{this._id}}" title="using params" class="btn btn-default btn btn-success" role="button">Kup 2 {{#if this.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
-                <button type="button" class="btn btn-default">Szczegóły...</button>
-                <button type="button" class="btn btn-default">Komentarz</button>
+                {{#if (itemAvailable this)}}
+                    <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Kup {{#if this.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
+                    <a href="/addtocart/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka</a>
+                {{else}}
+                    <button type="button" class="btn btn-default btn-info">Brak towaru!</button>
+                {{/if}}
+                    <button type="button" class="btn btn-default">Szczegóły...</button>
+                    <button type="button" class="btn btn-default">Komentarz</button>
             </div>
         </div>
     </div>
