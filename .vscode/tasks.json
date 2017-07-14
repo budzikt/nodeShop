@@ -10,9 +10,9 @@
         },
         {
             "taskName" : "FillDb",
-            "type": "process",
+            "type": "shell",
             "windows": {
-                "command": ".\\DatabaseFeed\\fillitems.cmd"
+                "command": "./DatabaseFeed/fillitems.cmd"
             }
         }
     ]
