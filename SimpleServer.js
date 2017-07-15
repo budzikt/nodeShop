@@ -40,7 +40,9 @@ var hbs = exphbs.create({   defaultLayout: "main",
                             layoutsDir: "views/layouts/", 
                             partialsDir: "views/partials/",
                             helpers: {
-                                itemAvailable: function (item) { if( item.quantity > 1) return true; else{ return false } }
+                                itemAvailable: function (item) { if( item.quantity > 1) return true; else{ return false } },
+                                firstImage: function(indexVal) {if (indexVal == 0) return true; else{return false} },
+                                incIndex: function(indexValue) {return (indexValue+1);}
                             }          
 });
 app.set('views', path.join(__dirname, 'views'));

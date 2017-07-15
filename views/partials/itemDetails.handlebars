@@ -1,3 +1,23 @@
+<style>
+    .row.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+    }
+    .thumbnail {
+    height: 100%;
+    }
+    div.c-wrapper{
+    width: 80%; 
+    margin: auto;
+    }
+
+    .carousel-inner > .item > img, 
+    .carousel-inner > .item > a > img{
+    width: 100%; /* use this, or not */
+    margin: auto;
+    }
+</style>
+
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
@@ -9,30 +29,22 @@
         </div>
 
         <div class="container">
-
-            <div class="row">
+            <div class="row c-wrapper">
                 <div id="item-carousel" class="carousel slide">
                     <!-- Wskazniki w postaci kropek -->
                     <ol class="carousel-indicators">
-                        <li data-target="#item-carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#item-carousel" data-slide-to="1"></li>
-                        <li data-target="#item-carousel" data-slide-to="2"></li>
+                        {{#each itemObj.imgRefs}}
+                        <li data-target="#item-carousel" data-slide-to={{incIndex @index}} class="{{#if (firstImage @index ) }} active {{/if}}"></li>
+                        {{/each}}
                     </ol>
 
                     <!-- Slajdy -->
                     <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="https://placehold.it/1280x500" alt="">
-                        </div>
-
-                        <div class="item">
-                            <img src="https://placehold.it/1280x500" alt="">
-                        </div>
-
-                        <div class="item">
-                            <img src="https://placehold.it/1280x500" alt="">
-                        </div>
-
+                        {{#each itemObj.imgRefs}}
+                        <div class="item {{#if (firstImage @index ) }} active {{/if}}">
+                            <img src="/images/{{@index}}.jpg" alt="tu powinien być obrazek">
+                        </div>                            
+                        {{/each}}
                     </div>
 
                     <!-- Strzałki do przewijania -->
@@ -53,17 +65,19 @@
         <div class="btn-group" role="group" aria-label="...">
             {{#if (itemAvailable itemObj)}}
             <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Kup {{#if itemObj.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
-            <a href="/addtocart/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka</a> {{else}}
-            <button type="button" class="btn btn-default btn-info">Brak towaru!</button> {{/if}}
+            <a href="/addtocart/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka</a> 
+            {{else}}
+            <button type="button" class="btn btn-default btn-info">Brak towaru!</button> 
+            {{/if}}
         </div>
     </div>
 </div>
-
+<div class="row display-flex">
 {{#each itemObj.imgRefs}}
-<div class="col-xs-6 col-md-3">
-    <a href="#" class="thumbnail">
-        <img src="" alt="obrazek...">
-        <span>{{this}}</span>
+<div class="col-xs-6 col-md-4">
+    <a href="#" class="thumbnail row-eq-height">
+        <img src="/images/{{@index}}.jpg" alt="Tu powinien być obrazek">
     </a>
 </div>
 {{/each}}
+</div>
