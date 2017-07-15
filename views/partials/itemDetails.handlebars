@@ -1,31 +1,69 @@
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-8">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-8">
                 <h1>{{itemObj.name}}</h1>
                 <h2 class="row well well-sm">{{itemObj.discription}}</h2>
                 <p>{{itemObj.fulldiscription}}</p>
-                    {{#each itemObj.imgRefs}}
-                        <div class="col-xs-6 col-md-3">
-                            <a href="#" class="thumbnail">
-                                <img src="" alt="obrazek...">
-                                <span>{{this}}</span>
-                            </a>
-                        </div> 
-                    {{/each}}
-                </div>
-            </div>
-            <div class="row well well-sm">
-                <div class="col-md-2">Cena: {{itemObj.price}}</div>
-                <div class="col-md-2">Stan magazynowy: {{itemObj.quantity}}</div>
-            </div>
-            <div class="btn-group" role="group" aria-label="...">
-                {{#if (itemAvailable itemObj)}}
-                    <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Kup {{#if itemObj.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
-                    <a href="/addtocart/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka</a>
-                {{else}}
-                    <button type="button" class="btn btn-default btn-info">Brak towaru!</button>
-                {{/if}}
             </div>
         </div>
+
+        <div class="container">
+
+            <div class="row">
+                <div id="item-carousel" class="carousel slide">
+                    <!-- Wskazniki w postaci kropek -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#item-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#item-carousel" data-slide-to="1"></li>
+                        <li data-target="#item-carousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Slajdy -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="https://placehold.it/1280x500" alt="">
+                        </div>
+
+                        <div class="item">
+                            <img src="https://placehold.it/1280x500" alt="">
+                        </div>
+
+                        <div class="item">
+                            <img src="https://placehold.it/1280x500" alt="">
+                        </div>
+
+                    </div>
+
+                    <!-- Strzałki do przewijania -->
+                    <a class="left carousel-control" href="#item-carousel" data-slide="prev">
+                        <span class="icon-prev"></span>
+                    </a>
+                    <a class="right carousel-control" href="#item-carousel" data-slide="next">
+                    <span class="icon-next"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row well well-sm">
+            <div class="col-md-2">Cena: {{itemObj.price}}</div>
+            <div class="col-md-2">Stan magazynowy: {{itemObj.quantity}}</div>
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+            {{#if (itemAvailable itemObj)}}
+            <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Kup {{#if itemObj.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
+            <a href="/addtocart/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka</a> {{else}}
+            <button type="button" class="btn btn-default btn-info">Brak towaru!</button> {{/if}}
+        </div>
     </div>
+</div>
+
+{{#each itemObj.imgRefs}}
+<div class="col-xs-6 col-md-3">
+    <a href="#" class="thumbnail">
+        <img src="" alt="obrazek...">
+        <span>{{this}}</span>
+    </a>
+</div>
+{{/each}}
