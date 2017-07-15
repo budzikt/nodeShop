@@ -18,7 +18,7 @@
     }
 </style>
 
-<div class="panel panel-default">
+<div class="panel panel-default container">
     <div class="panel-body">
         <div class="row">
             <div class="col-md-8">
@@ -27,7 +27,7 @@
                 <p>{{itemObj.fulldiscription}}</p>
             </div>
         </div>
-
+        {{#if itemObj.imgRefs}}
         <div class="container">
             <div class="row c-wrapper">
                 <div id="item-carousel" class="carousel slide">
@@ -57,6 +57,15 @@
                 </div>
             </div>
         </div>
+        {{else}}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 alert alert-danger alert">
+                    Brak zdjęć dla tego produktu!
+                </div> 
+            </div>
+        </div>
+        {{/if}}
 
         <div class="row well well-sm">
             <div class="col-md-2">Cena: {{itemObj.price}}</div>
@@ -72,6 +81,7 @@
         </div>
     </div>
 </div>
+
 <div class="row display-flex">
 {{#each itemObj.imgRefs}}
 <div class="col-xs-6 col-md-4">

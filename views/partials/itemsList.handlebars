@@ -6,14 +6,23 @@
                 <div class="col-md-8">
                 <h2>{{this.name}}</h2>
                 <p>{{this.discription}}</p>
+                {{#if this.imgRefs}}
                     {{#each this.imgRefs}}
                         <div class="col-xs-6 col-md-3">
                             <a href="#" class="thumbnail">
-                                <img src="" alt="obrazek...">
-                                <span>{{this}}</span>
+                                <img src="/images/{{@index}}.jpg" alt="obrazek...">
                             </a>
                         </div> 
                     {{/each}}
+                {{else}}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-md-8 alert alert-danger alert">
+                                Brak zdjęć dla tego produktu!
+                            </div> 
+                        </div>
+                    </div>
+                    {{/if}}
                 </div>
             </div>
             <div class="row well well-sm">
