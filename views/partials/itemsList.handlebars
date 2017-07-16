@@ -1,7 +1,7 @@
-<div class="container">
     {{#each docs}}
+    <div class="container">
     <div class="panel panel-default">
-        
+
         <div class="panel-body">
             
             <div class="row">
@@ -36,22 +36,22 @@
             </div>
 
             <div class="row">
-            <div class="btn-group" role="group" aria-label="...">
-                {{#if (itemAvailable this)}}
-                    <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka {{#if this.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
-                {{else}}
-                    <button type="button" class="btn btn-default btn-info">Brak towaru!</button>
-                {{/if}}
-                    <a href="/itemdetails/{{this._id}}" class="btn btn-default" role="button" >Szczegóły</a>
-                    <button type="button" class="btn btn-default btm-modal_toggle" data-toggle="modal" data-target="#myModal" dbId={{this._id}}>Komentarz</button>
-            </div>
+                <div class="btn-group" role="group" aria-label="...">
+                    {{#if (itemAvailable this)}}
+                        <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka {{#if this.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
+                    {{else}}
+                        <button type="button" class="btn btn-default btn-info">Brak towaru!</button>
+                    {{/if}}
+                        <a href="/itemdetails/{{this._id}}" class="btn btn-default" role="button" >Szczegóły</a>
+                        <button type="button" class="btn btn-default btm-modal_toggle comment-button" data-toggle="modal" data-target="#myModal" dbId={{this._id}}>Komentarz</button>
+                </div>
             </div>
 
         </div>
 
     </div>
+    </div>
     {{/each}}
-</div>
 
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -66,9 +66,27 @@
         <p id="modalTextId"></p>
       </div>
     
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+        <form method="post">
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="comment">Treść komentarza:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+            <div class="form-group">
+            <label for="sel1">Twoja ocena: </label>
+            <select class="form-control" id="rating">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            </div>    
+        </form>
+         <button type="submit" class="btn btn-default send-comment" dbId="" id="commentSubmit">Submit</button>
     </div>
   </div>
 </div>

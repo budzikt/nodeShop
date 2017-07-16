@@ -223,6 +223,10 @@ app.get('/itemdetails/:id', function(req,res){
     });
 })
 
+app.post('/commentary/:itemId',bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){
+    console.log(req.params.itemId);
+    res.end();
+});
 //Plug additiona router for API requiests - all mounted on /api will be used in router as relative (i.e. / not as /api)
 app.use('/api', require('./routes/api').apiRouter);
 

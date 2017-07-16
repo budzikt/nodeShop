@@ -4,12 +4,22 @@
     // $('#modalTextId').after(dbId);
 //  });
 $(document).on("click", "div .panel-body", function (e) {
-    dbId = e.target.attributes['dbid'].value;
-    name = $(".itemName", e);
-    console.log("delegateTarget: " + e.delegateTarget);
-    console.log("currentTarget: " + e.currentTarget);
-    console.log("target: " + e.target);
-    $('#modalTextId').after(dbId);
+    if($(e.target).hasClass("comment-button")){
+        var dbId = e.target.attributes['dbid'].value;
+        var name = $(".itemName", this).text();
+        $('#modalTextId').append("Dodaj komentarz dla " + name);
+        $('#modalTextId').after(dbId);
+        $("#commentSubmit").attr("dbId", dbId) //Tak brzydko...
+    }
+});
+$(document).on("click", ".send-comment", function(e){
+    var txt = $("#comment").val();  
+    var rating = $("#rating").val();
+    var idDb = $("#commentSubmit").attr("dbId");
+    var postPath = "/commentary/" + idDb;
+    $.post(postPath, {commentText: txt}, function(result){
+         alert("ay");
+    });
 });
 </script>
 
