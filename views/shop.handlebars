@@ -1,6 +1,17 @@
+<script type="text/javascript">
+   // $(document).on("click", ".btm-modal_toggle", function (e) {
+    //var dbId = this.attributes['dbid'].value
+    // $('#modalTextId').after(dbId);
+//  });
+$(document).on("click", "div .panel-body", function (e) {
+    dbId = e.target.attributes['dbid'].value;
+    name = $(".itemName", e);
+    console.log("delegateTarget: " + e.delegateTarget);
+    console.log("currentTarget: " + e.currentTarget);
+    console.log("target: " + e.target);
+    $('#modalTextId').after(dbId);
+});
+</script>
+
 {{>topMenu}}
 {{>itemsList}}
-
-<script type="text/javascript">
-    
-</script>
