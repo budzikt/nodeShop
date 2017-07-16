@@ -1,10 +1,12 @@
 <div class="container">
     {{#each docs}}
     <div class="panel panel-default">
+        
         <div class="panel-body">
+            
             <div class="row">
                 <div class="col-md-8">
-                <h2>{{this.name}}</h2>
+                <h2 class="itemName">{{this.name}}</h2>
                 <p>{{this.discription}}</p>
                 {{#if this.imgRefs}}
                     {{#each this.imgRefs}}
@@ -25,21 +27,48 @@
                     {{/if}}
                 </div>
             </div>
-            <div class="row well well-sm">
-                <div class="col-md-2">Cena: {{this.price}}</div>
-                <div class="col-md-2">Stan magazynowy: {{this.quantity}}</div>
+
+            <div class="row">
+                <div class="well well-lg">
+                    <div class="col-md-2">Cena: {{this.price}}</div>
+                    <div class="col-md-2">Stan magazynowy: {{this.quantity}}</div>
+                </div>
             </div>
+
+            <div class="row">
             <div class="btn-group" role="group" aria-label="...">
                 {{#if (itemAvailable this)}}
-                    <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Kup {{#if this.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
-                    <a href="/addtocart/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka</a>
+                    <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka {{#if this.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
                 {{else}}
                     <button type="button" class="btn btn-default btn-info">Brak towaru!</button>
                 {{/if}}
-                    <button type="button" href="/itemdetails/{{this._id}}" class="btn btn-default">Szczegóły...</button>
-                    <button type="button" class="btn btn-default">Komentarz</button>
+                    <a href="/itemdetails/{{this._id}}" class="btn btn-default" role="button" >Szczegóły</a>
+                    <button type="button" class="btn btn-default btm-modal_toggle" data-toggle="modal" data-target="#myModal" dbId={{this._id}}>Komentarz</button>
             </div>
+            </div>
+
         </div>
+
     </div>
     {{/each}}
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Komentarz</h4>
+      </div>
+      <div class="modal-body" id="modalText">
+        <p id="modalTextId"></p>
+      </div>
+    
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
