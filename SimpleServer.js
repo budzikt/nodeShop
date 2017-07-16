@@ -42,7 +42,8 @@ var hbs = exphbs.create({   defaultLayout: "main",
                             helpers: {
                                 itemAvailable: function (item) { if( item.quantity > 1) return true; else{ return false } },
                                 firstImage: function(indexVal) {if (indexVal == 0) return true; else{return false} },
-                                incIndex: function(indexValue) {return (indexValue+1);}
+                                incIndex: function(indexValue) {return (indexValue+1);},
+                                noOfComments: function(commentsArray){return commentsArray.length}
                             }          
 });
 app.set('views', path.join(__dirname, 'views'));
