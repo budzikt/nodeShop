@@ -43,8 +43,16 @@ var hbs = exphbs.create({   defaultLayout: "main",
                                 itemAvailable: function (item) { if( item.quantity > 1) return true; else{ return false } },
                                 firstImage: function(indexVal) {if (indexVal == 0) return true; else{return false} },
                                 incIndex: function(indexValue) {return (indexValue+1);},
-                                noOfComments: function(commentsArray){return commentsArray.length}
-                            }          
+                                hasComments: function(commArr) {
+                                    if(commArr == undefined || commArr.length == 0 ) {
+                                        return false
+                                    }
+                                    else{ return true}
+                                },
+                                noOfComments: function(commArr){return commArr.length},
+                                alternatingWell: function(index) {if ( index+1 % 2 == 0) {return true} else {return false}}   
+                            }
+                                  
 });
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', hbs.engine);
@@ -204,6 +212,7 @@ app.get('/shop', function(req,res){
         var items = db.collection('ShopItems');
         items.find({}).toArray(function(err, docs){
             if(err) {console.log("Error at shop"); res.send(err); return;}
+
             res.render('shop', {docs})
         });   
     });
@@ -224,9 +233,30 @@ app.get('/itemdetails/:id', function(req,res){
 })
 
 app.post('/commentary/:itemId',bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), function(req,res){
+    
     console.log(req.params.itemId);
-    res.end();
+    app.locals.dataBind = app.locals.dataBind || {}; 
+    var MongoClient = MongoDb.MongoClient;
+    var url = 'mongodb://localhost:27017/shop';
+
+    MongoClient.connect(url, function(err, db){
+        var items = db.collection('ShopItems');
+        var id = new MongoDb.ObjectID(req.params.itemId);
+        var query = {_id : id}; // serch by ID
+        var sort = [['_id', 'desc']];
+        var insertion = {email: req.body.mail, rating: req.body.rate, text: req.body.commentText}
+        var operators = {$push : {commentArray: insertion}}
+        var options = {
+            new: true
+        }
+        items.findAndModify(query,sort,operators,options, function(error, result){
+            if(error){console.log(error);res.send(err); return;}
+            res.end();
+        })
+    })
+    
 });
+
 //Plug additiona router for API requiests - all mounted on /api will be used in router as relative (i.e. / not as /api)
 app.use('/api', require('./routes/api').apiRouter);
 

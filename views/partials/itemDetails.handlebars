@@ -80,14 +80,31 @@
             {{/if}}
         </div>
     </div>
-</div>
-
-<div class="row display-flex">
-{{#each itemObj.imgRefs}}
-<div class="col-xs-6 col-md-4">
-    <a href="#" class="thumbnail row-eq-height">
+    <div class="row display-flex">
+        {{#each itemObj.imgRefs}}
+        <div class="col-xs-6 col-md-4">
+            <a href="" class="thumbnail row-eq-height">
         <img src="/images/{{@index}}.jpg" alt="Tu powinien być obrazek">
-    </a>
-</div>
-{{/each}}
+            </a>
+        </div>
+        {{/each}}
+    </div>
+    <div id="commentSection">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Komentarze: </h3>
+        </div>
+        <div class="panel-body">
+        {{#if (hasComments itemObj.commentArray)}}
+            {{#each itemObj.commentArray}}
+            <div class="{{#if (alternatingWell @index)}} well {{/if}}">
+                <span class="label label-primary">Autor: </span><p>{{this.email}}</p>
+                <span class="label label-primary">Treść: </span><p>{{this.text}}</p> 
+                <span class="label label-primary">Ocena: </span><p>{{this.rating}}</p>
+            </div>
+            {{/each}}
+        {{else}}
+        Nikt nie skomentował, bądź pierwszy!
+        {{/if}}
+        </div>
+    </div>
 </div>

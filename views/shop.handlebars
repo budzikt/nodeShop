@@ -1,26 +1,48 @@
+<style>
+.img-greyscale {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+</style>
+
 <script type="text/javascript">
-   // $(document).on("click", ".btm-modal_toggle", function (e) {
-    //var dbId = this.attributes['dbid'].value
-    // $('#modalTextId').after(dbId);
-//  });
+
+//Pass product ID to modal
 $(document).on("click", "div .panel-body", function (e) {
     if($(e.target).hasClass("comment-button")){
         var dbId = e.target.attributes['dbid'].value;
         var name = $(".itemName", this).text();
-        $('#modalTextId').append("Dodaj komentarz dla " + name);
-        $('#modalTextId').after(dbId);
-        $("#commentSubmit").attr("dbId", dbId) //Tak brzydko...
+        $('#modalTextId').append("Dodaj komentarz dla produktu: " + name);
+        $("#commentSubmit").attr("dbId", dbId) //[todo]:ugly
+    }
+    else{
+
     }
 });
+
+//Send xhr to server
 $(document).on("click", ".send-comment", function(e){
     var txt = $("#comment").val();  
     var rating = $("#rating").val();
     var idDb = $("#commentSubmit").attr("dbId");
+    var email = $("#email").val();
     var postPath = "/commentary/" + idDb;
-    $.post(postPath, {commentText: txt}, function(result){
-         alert("ay");
+    $.post(postPath, {commentText: txt, rate: rating, mail: email}, function(result){
+         $('#myModal').modal('hide');
     });
 });
+
+//Clear modal data
+$(document).on("click", ".modal-header .close", function(e){
+    //console.log("closed");
+    $('#modalTextId').empty();
+    $('#email').val('');
+    $('#comment').val('');
+    $("#commentSubmit").attr("dbId", "") //[todo]:ugly
+    $('#rating').val('')
+    $('#myModal').modal('hide');
+})
+
 </script>
 
 {{>topMenu}}
