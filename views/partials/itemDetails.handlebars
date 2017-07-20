@@ -96,10 +96,16 @@
         <div class="panel-body">
         {{#if (hasComments itemObj.commentArray)}}
             {{#each itemObj.commentArray}}
-            <div class="{{#if (alternatingWell @index)}} well {{/if}}">
-                <span class="label label-primary">Autor: </span><p>{{this.email}}</p>
-                <span class="label label-primary">Treść: </span><p>{{this.text}}</p> 
-                <span class="label label-primary">Ocena: </span><p>{{this.rating}}</p>
+            <div class="well row">
+                <div class="col-xs-6 col-md-4">
+                    <span class="label label-primary">Autor: </span><p>{{this.email}}</p>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <span class="label label-primary">Treść: </span><p>{{this.text}}</p> 
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <span class="label label-primary">Ocena: </span><p>{{this.rating}}</p>
+                </div>
             </div>
             {{/each}}
         {{else}}
