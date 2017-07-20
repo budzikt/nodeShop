@@ -1,0 +1,14 @@
+{
+    "users":[
+        {
+            "name": "tomek",
+            "password": "123",
+            "role": ["admin","buyer","seller"]
+        },
+        {
+            "name": "test",
+            "password": "qwe",
+            "role": ["buyer"]            
+        }
+    ]
+}

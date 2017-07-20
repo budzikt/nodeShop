@@ -1,0 +1,99 @@
+    {{#each docs}}
+    <div class="container">
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+            
+            <div class="row">
+                <div class="col-md-8">
+                <h2 class="itemName">{{this.name}}</h2>
+                <p>{{this.discription}}</p>
+                {{#if this.imgRefs}}
+                    {{#each this.imgRefs}}
+                        <div class="col-xs-6 col-md-3">
+                            <a href="#" class="thumbnail">
+                                <img src="/images/{{@index}}.jpg" alt="obrazek..." class="{{#if (itemAvailable ../this)}}img-color{{else}}img-greyscale{{/if}}">
+                            </a>
+                        </div> 
+                    {{/each}}
+                {{else}}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-md-8 alert alert-danger alert">
+                                Brak zdjęć dla tego produktu!
+                            </div> 
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="well well-lg">
+                    <div class="col-md-2">Cena: {{this.price}}</div>
+                    <div class="col-md-2">Stan magazynowy: {{this.quantity}}</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="btn-group" role="group" aria-label="...">
+                    {{#if (itemAvailable this)}}
+                        <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka {{#if this.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
+                    {{else}}
+                        <button type="button" class="btn btn-default btn-info">Brak towaru!</button>
+                    {{/if}}
+                        <a href="/itemdetails/{{this._id}}" class="btn btn-default" role="button" >Szczegóły</a>
+                        <button type="button" 
+                                class="btn btn-default btm-modal_toggle comment-button" 
+                                data-toggle="modal" 
+                                data-target="#myModal" 
+                                dbId={{this._id}} 
+                                data-backdrop="static">Komentarz {{#if (hasComments this.commentArray)}}<span class="badge">{{noOfComments this.commentArray}}</span>{{/if}}</button>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+    {{/each}}
+
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Zawartosc -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modallll">&times;</button>
+        <h4 class="modal-title">Komentarz</h4>
+      </div>
+      <div class="modal-body" id="modalText">
+        <p id="modalTextId"></p>
+      </div>
+    
+        <form method="post">
+            <div class="form-group">
+                <label for="email">Adres Email:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+                <label for="comment">Treść komentarza:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+            <div class="form-group">
+            <label for="rating">Twoja ocena: </label>
+            <select required class="form-control" id="rating">
+                <option></option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            </div>    
+        </form>
+         <button type="submit" class="btn btn-default send-comment" dbId="" id="commentSubmit">Wyślij</button>
+    </div>
+  </div>
+</div>

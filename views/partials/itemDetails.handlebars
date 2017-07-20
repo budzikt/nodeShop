@@ -1,0 +1,116 @@
+<style>
+    .row.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+    }
+    .thumbnail {
+    height: 100%;
+    }
+    div.c-wrapper{
+    width: 80%; 
+    margin: auto;
+    }
+
+    .carousel-inner > .item > img, 
+    .carousel-inner > .item > a > img{
+    width: 100%; /* use this, or not */
+    margin: auto;
+    }
+</style>
+
+<div class="panel panel-default container">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>{{itemObj.name}}</h1>
+                <h2 class="row well well-sm">{{itemObj.discription}}</h2>
+                <p>{{itemObj.fulldiscription}}</p>
+            </div>
+        </div>
+        {{#if itemObj.imgRefs}}
+        <div class="container">
+            <div class="row c-wrapper">
+                <div id="item-carousel" class="carousel slide">
+                    <!-- Wskazniki w postaci kropek -->
+                    <ol class="carousel-indicators">
+                        {{#each itemObj.imgRefs}}
+                        <li data-target="#item-carousel" data-slide-to={{incIndex @index}} class="{{#if (firstImage @index ) }} active {{/if}}"></li>
+                        {{/each}}
+                    </ol>
+
+                    <!-- Slajdy -->
+                    <div class="carousel-inner">
+                        {{#each itemObj.imgRefs}}
+                        <div class="item {{#if (firstImage @index ) }} active {{/if}}">
+                            <img src="/images/{{@index}}.jpg" alt="tu powinien być obrazek">
+                        </div>                            
+                        {{/each}}
+                    </div>
+
+                    <!-- Strzałki do przewijania -->
+                    <a class="left carousel-control" href="#item-carousel" data-slide="prev">
+                        <span class="icon-prev"></span>
+                    </a>
+                    <a class="right carousel-control" href="#item-carousel" data-slide="next">
+                    <span class="icon-next"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 alert alert-danger alert">
+                    Brak zdjęć dla tego produktu!
+                </div> 
+            </div>
+        </div>
+        {{/if}}
+
+        <div class="row well well-sm">
+            <div class="col-md-2">Cena: {{itemObj.price}}</div>
+            <div class="col-md-2">Stan magazynowy: {{itemObj.quantity}}</div>
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+            {{#if (itemAvailable itemObj)}}
+            <a href="/itemdetails/{{this._id}}" class="btn btn-default btn-success" role="button">Kup {{#if itemObj.discount}}<span class="label label-warning">Wyprzedaż</span>{{/if}}</a>
+            <a href="/addtocart/{{this._id}}" class="btn btn-default btn-success" role="button">Dodaj do koszyka</a> 
+            {{else}}
+            <button type="button" class="btn btn-default btn-info">Brak towaru!</button> 
+            {{/if}}
+        </div>
+    </div>
+    <div class="row display-flex">
+        {{#each itemObj.imgRefs}}
+        <div class="col-xs-6 col-md-4">
+            <a href="" class="thumbnail row-eq-height">
+        <img src="/images/{{@index}}.jpg" alt="Tu powinien być obrazek">
+            </a>
+        </div>
+        {{/each}}
+    </div>
+    <div id="commentSection">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Komentarze: </h3>
+        </div>
+        <div class="panel-body">
+        {{#if (hasComments itemObj.commentArray)}}
+            {{#each itemObj.commentArray}}
+            <div class="well row">
+                <div class="col-xs-6 col-md-4">
+                    <span class="label label-primary">Autor: </span><p>{{this.email}}</p>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <span class="label label-primary">Treść: </span><p>{{this.text}}</p> 
+                </div>
+                <div class="col-xs-6 col-md-4">
+                    <span class="label label-primary">Ocena: </span><p>{{this.rating}}</p>
+                </div>
+            </div>
+            {{/each}}
+        {{else}}
+        Nikt nie skomentował, bądź pierwszy!
+        {{/if}}
+        </div>
+    </div>
+</div>
