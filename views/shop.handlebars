@@ -31,12 +31,7 @@ $(document).on("click", ".send-comment", function(e){
     var postPath = "/commentary/" + idDb;
 
     $.post(postPath, {commentText: txt, rate: rating, mail: email}, function(result){
-        //Claer modal
-        $('#modalTextId').empty();
-        $('#email').val('');
-        $('#comment').val('');
-        $("#commentSubmit").attr("dbId", "") //[todo]:ugly
-        $('#rating').val('')
+        clearModal();
         //Update comment number
         var selector = "#"+ idDb
         var elements = $('span.badge');
@@ -47,7 +42,10 @@ $(document).on("click", ".send-comment", function(e){
             for(i=0;i<elements.length;i++){
                 if($(elements[i]).attr("dbId") === idDb){
                     console.log("MATCH")
-                    $(elements[i]).text(result.comments.length)
+
+                    var meanToBadge = result.mean.toPrecision(3);
+                    $(elements[i]).text(result.comments.length);
+                    $(elements[i]).append( " Średnia ocen: " + meanToBadge);
                     break;
                 }
             }
@@ -60,16 +58,16 @@ $(document).on("click", ".send-comment", function(e){
 //Clear modal data
 $(document).on("click", ".modal-header .close", function(e){
     //console.log("closed");
-    $('#modalTextId').empty();
-    $('#email').val('');
-    $('#comment').val('');
-    $("#commentSubmit").attr("dbId", "") //[todo]:ugly
-    $('#rating').val('')
-    $('#myModal').modal('hide');
+    clearModal();
 })
 
 function clearModal(){
-    
+    $('#modalTextId').empty();
+    $('#email').val('');
+    $('#comment').val('');
+    $("#commentSubmit").attr("dbId", "") 
+    $('#rating').val('')
+    $('#myModal').modal('hide');
 }
 
 </script>

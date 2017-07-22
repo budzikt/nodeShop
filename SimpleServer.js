@@ -254,9 +254,18 @@ app.post('/commentary/:itemId',bodyparser.urlencoded({'type' : '*/*', 'extended'
         items.findAndModify(query,sort,operators,options, function(error, result){
             console.log(result.value.commentArray);
             if(error){console.log(error);res.send(err); return;}
+            var meanNote =0;
+            for(i=0;i<result.value.commentArray.length;i++){
+               var rate = result.value.commentArray[i].rating;
+               var rateInt = parseInt(rate);
+               meanNote = meanNote +  rateInt;
+            }
+            meanNote = meanNote/result.value.commentArray.length;
             res.type('json');
-            res.json({comments: result.value.commentArray})
-            //res.end();
+            res.json({
+                comments: result.value.commentArray,
+                mean : meanNote
+                })
         })
     })
     
