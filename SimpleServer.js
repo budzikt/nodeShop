@@ -67,7 +67,9 @@ app.use(morgan('tiny')); // Logger zdarzen
 app.use(session({
     secret: 'secret',
     resave: false,
-    saveUninitialized: true})
+    saveUninitialized: true,
+    cookie: { path: '/', httpOnly: false, secure: false, maxAge: null }
+})
 ); //obługa sesji
 app.use(b_util.reqUserParse); //biblioteki wlasne
 
@@ -101,7 +103,7 @@ app.get('/', function(req,res){
 })
 
 app.get('/login', function(req,res){
-    res.render('login')
+    res.render('login', {})
 })
 
 app.get('/signin', function(req,res){
@@ -250,8 +252,11 @@ app.post('/commentary/:itemId',bodyparser.urlencoded({'type' : '*/*', 'extended'
             new: true
         }
         items.findAndModify(query,sort,operators,options, function(error, result){
+            console.log(result.value.commentArray);
             if(error){console.log(error);res.send(err); return;}
-            res.end();
+            res.type('json');
+            res.json({comments: result.value.commentArray})
+            //res.end();
         })
     })
     
