@@ -8,7 +8,7 @@ var itemSchema = new Schema({
     "name":              {type: String, required: true},
     "quantity":          {type: Number, required: true},
     "price":             {type: Number, required: true},
-    "discount":          {type: Boolean, defaul: false},
+    "discount":          {type: Boolean, default: false},
     "discription" :      {type: String},
     "fulldiscription":   {type: String},
     "imgRefs" :          {type: Array[String]},
