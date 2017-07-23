@@ -22,9 +22,9 @@ apiRouter.get('/items/:id', function(req,res){
             if(items.length == 1 ){
                 res.json(items[0]);
             } else{
-                res.json({error: "No such item or duplicates..."});
+                res.json({info: "No Item with ID " + id + " in DB"});
             }
-            
+            res.end();
         });
     });
 });
@@ -49,16 +49,24 @@ apiRouter.post('/items/:id', function(req,res){
 
     MongoClient.connect(url, function(err, db){
         var items = db.collection('ShopItems');
-        items.find({_id : body["_id"]}).toArray(function(err, docs){
-            if(err) {console.log("Error at shop"); res.send(err); return;}
-            if(docs.length != 0){
-                res.json({error: "No such item or duplicates..."});
+        items.find({_id : body["_id"]}).toArray(function(err, docs){          
+            if(err) {console.log("Error at shop"); res.send(err); return;}           
+            if(docs.length == 0){
+                var doc = body;
+                items.insertOne(doc, function(err, result){
+                    db.close();
+                    res.json(result.ops[0])
+                    res.end();
+                });
+            } else if(docs.length > 1 ){
+                res.json({error: "Duplicates of ID: " + body["_id"]});
+                res.end();
+                return;
+            } else if(docs.length == 1) {
+                res.json({error: "ID: " + body["_id"] + " already existing!"});
+                res.end();
+                return;               
             }
-            var doc = body;
-            items.insertOne(doc, function(err, result){
-                db.close();
-                res.json(result.ops[0])
-            });
         });
     });
 })
@@ -85,7 +93,8 @@ apiRouter.put('/items/:id', function(req,res){
     var reqId = req.params.id;
     //Create document from req.body
     var body = req.body;
-    if(body.hasOwnProperty(')id')){
+    //Remove any id fields in current JSON - sanity...
+    if(body.hasOwnProperty('_id')){
         delete body['_id'];
     }
     var id;
