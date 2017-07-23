@@ -10,14 +10,21 @@ apiRouter.get('/items/:id', function(req,res){
     MongoClient.connect(url, function(err, db){
         var items = db.collection('ShopItems');
         var id;
+        
         try{
         id =new MongoDb.ObjectID(reqId);
         } catch(err){
             id = parseInt(reqId);
         }
+
         items.find({_id : id}).toArray(function(err, items){
             if(err) {console.log("Error at shop"); res.send(err); return;}
-            res.json(items[0]);
+            if(items.length == 1 ){
+                res.json(items[0]);
+            } else{
+                res.json({error: "No such item or duplicates..."});
+            }
+            
         });
     });
 });
@@ -27,24 +34,81 @@ apiRouter.post('/items/:id', function(req,res){
     var MongoClient = MongoDb.MongoClient;
     var url = 'mongodb://localhost:27017/shop';
 
-    body = req.body;
-    var id = body.id;//new MongoDb.ObjectID(body.id);
+    //Create document from req.body
+    var body = req.body;
     
+    //Remove any id fields in current JSON - sanity...
+    var idFields = ["_id", "id", "id_field"];
+    for(i=0;i<idFields.length;i++){
+        if(idFields[i] in body){
+            delete body[idFields[i]]
+        }
+    }
+
+    body["_id"] = parseInt(req.params.id);
+
     MongoClient.connect(url, function(err, db){
         var items = db.collection('ShopItems');
-        items.find({_id : id}).toArray(function(err, docs){
+        items.find({_id : body["_id"]}).toArray(function(err, docs){
             if(err) {console.log("Error at shop"); res.send(err); return;}
             if(docs.length != 0){
-                res.end("Ten obiekt juz istnieje");
+                res.json({error: "No such item or duplicates..."});
             }
-            body._id = body.id;
-            delete body.id;
-            items.insertOne(body, function(err, result){
+            var doc = body;
+            items.insertOne(doc, function(err, result){
                 db.close();
-
+                res.json(result.ops[0])
             });
         });
     });
 })
+
+apiRouter.delete('/items/:id', function(req,res){
+    app.locals.dataBind = app.locals.dataBind || {}; 
+    var MongoClient = MongoDb.MongoClient;
+    var url = 'mongodb://localhost:27017/shop';
+    var id = parseInt(req.params.id);
+    MongoClient.connect(url, function(err, db){
+         if(err) {console.log("Error at shop"); res.send(err); return;}
+         var items = db.collection('ShopItems');
+         items.findOneAndDelete({_id : id}, function(error, result){
+            respJson = result.value 
+            res.json(respJson);
+         });
+    });
+});
+
+apiRouter.put('/items/:id', function(req,res){
+    app.locals.dataBind = app.locals.dataBind || {}; 
+    var MongoClient = MongoDb.MongoClient;
+    var url = 'mongodb://localhost:27017/shop';
+    var reqId = req.params.id;
+    //Create document from req.body
+    var body = req.body;
+    if(body.hasOwnProperty(')id')){
+        delete body['_id'];
+    }
+    var id;
+    try {
+        id = new MongoDb.ObjectID(reqId);
+    } catch (err) {
+        id = parseInt(reqId);
+    }
+
+    MongoClient.connect(url, function(err, db){
+        if(err) {console.log("Error at shop"); res.send(err); return;}
+        var items = db.collection('ShopItems');
+        items.find({_id : id}).toArray(function(err, docs){
+            var currDoc = docs[0];
+            var keyNames = Object.keys(body);
+            for(i=0;i<keyNames.length;i++){
+                currDoc[keyNames[i]] = body[keyNames[i]];
+            }
+            items.findOneAndReplace({_id : id},currDoc,function(error, result){
+                res.json(result.value);
+            });
+        });
+    });
+});
 
 exports.apiRouter = apiRouter;
