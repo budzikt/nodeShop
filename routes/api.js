@@ -1,5 +1,21 @@
 var MongoDb = require('mongodb');
 var apiRouter = require('express').Router();
+var mongoose = require('mongoose');
+
+
+var Schema = mongoose.Schema;
+var itemSchema = new Schema({
+    "name":              {type: String, required: true},
+    "quantity":          {type: Number, required: true},
+    "price":             {type: Number, required: true},
+    "discount":          {type: Boolean, defaul: false},
+    "discription" :      {type: String},
+    "fulldiscription":   {type: String},
+    "imgRefs" :          {type: Array[String]},
+    "dateAdded":         {type: Date, default: Date.now()},
+},
+{ collection: 'ShopItems' })
+var ShopItemModel = mongoose.model('ShopItem', itemSchema);
 
 apiRouter.get('/items/:id', function(req,res){
     var reqId = req.params.id;
