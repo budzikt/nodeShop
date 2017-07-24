@@ -162,6 +162,9 @@ app.post('/login',  bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), 
                 app.locals.dataBind['user'] = req.body.userName;
                 req.session.name = req.body.userName;
                 req.session.logged = true;
+                if(docs[0].role.indexOf('admin') != -1){
+                     req.session.admin = true;
+                }
                 console.log("Access granted for user:" + req.body.userName);
                 res.redirect('/')
             }

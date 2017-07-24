@@ -1,6 +1,16 @@
 var MongoDb = require('mongodb');
 var apiRouter = require('express').Router();
 
+var auth = function(req,res,next){
+    if(req.session.logged == true && req.session.admin == true){
+        return next();
+    } else{
+        return res.send(401);
+    }
+}
+
+apiRouter.use(auth)
+
 apiRouter.get('/items/:id', function(req,res){
     var reqId = req.params.id;
     app.locals.dataBind = app.locals.dataBind || {}; 
