@@ -8,7 +8,6 @@ var auth = function(req,res,next){
         return res.send(401);
     }
 }
-
 apiRouter.use(auth)
 
 apiRouter.get('/items/:id', function(req,res){

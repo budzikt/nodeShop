@@ -21,9 +21,9 @@ $(document).on("click", "div .panel-body", function (e) {
     }
 });
 
-//Send xhr to server
+//Wyślij XHR do serwera
 $(document).on("click", ".send-comment", function(e){
-    //Bulid XHR data
+    //Zbierz dane z formularza
     var txt = $("#comment").val();  
     var rating = $("#rating").val();
     var idDb = $("#commentSubmit").attr("dbId");
@@ -32,12 +32,10 @@ $(document).on("click", ".send-comment", function(e){
 
     $.post(postPath, {commentText: txt, rate: rating, mail: email}, function(result){
         clearModal();
-        //Update comment number
         var selector = "#"+ idDb
         var elements = $('span.badge');
         if(elements.length === 0){
-            console.log("No span")
-        }
+            console.log("No span")}
         else{
             for(i=0;i<elements.length;i++){
                 if($(elements[i]).attr("dbId") === idDb){
@@ -51,7 +49,6 @@ $(document).on("click", ".send-comment", function(e){
             }
         }
         $('#myModal').modal('hide');
-
     }, 'json');
 });
 

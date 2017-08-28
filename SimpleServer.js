@@ -174,7 +174,7 @@ app.post('/login',  bodyparser.urlencoded({'type' : '*/*', 'extended' : true}), 
             }
         });
     });    
-})
+});
 
 app.get('/logout', function(req,res){
     req.session.destroy(function(error){
